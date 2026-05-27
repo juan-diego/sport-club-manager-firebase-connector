@@ -28,7 +28,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "ngc -p tsconfig.lib.json && node ./scripts/verify-angular-metadata.mjs",
+    "check:angular-metadata": "node ./scripts/verify-angular-metadata.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "prepare": "npm run build",
     "clean": "rm -rf dist"
@@ -40,6 +41,7 @@
     "sport-club-manager-contracts": ">=0.0.0"
   },
   "devDependencies": {
+    "@angular/compiler-cli": "^20.2.0",
     "@angular/core": "^20.2.0",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",

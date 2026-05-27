@@ -106,7 +106,11 @@ Common commands:
 ```bash
 npm run typecheck
 npm run build
+npm run check:angular-metadata
 ```
+
+This package must be built with Angular compilation. Do not replace the build with plain `tsc` for
+Angular-decorated classes, or consuming apps can fail at runtime with JIT compilation errors.
 
 ## Boundary Rules
 
