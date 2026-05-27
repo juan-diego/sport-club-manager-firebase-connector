@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 import type { AuthState, AuthUser } from 'sport-club-manager-contracts/models';
 import { AuthStateModel, UserRole, type AuthCredentials, type RegisterCredentials } from 'sport-club-manager-contracts/models';
@@ -24,7 +26,7 @@ export class FirebaseAuthService implements AuthProvider {
   private readonly registrationProvider: RegistrationProvider = inject(REGISTRATION_PROVIDER);
 
   readonly #authState = signal<AuthState>(new AuthStateModel('loading'));
-  readonly authState = this.#authState.asReadonly();
+  readonly authState$ = toObservable(this.#authState).pipe(distinctUntilChanged());
 
   constructor() {
     onAuthStateChanged(this.auth, user => {
@@ -65,6 +67,10 @@ export class FirebaseAuthService implements AuthProvider {
   async logout(): Promise<void> {
     this.#authState.set(new AuthStateModel('unauthenticated'));
     await signOut(this.auth);
+  }
+
+  getAuthState(): AuthState {
+    return this.#authState();
   }
 
   private toAuthUser(user: User | null | undefined): AuthUser | null | undefined {
