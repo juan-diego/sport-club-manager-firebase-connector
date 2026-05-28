@@ -34,9 +34,8 @@ Planned consumer:
 
 - `sport-club-manager-angular-frontend`
 
-For local development in the split workspace, this repository expects
-`sport-club-manager-contracts` to exist as a sibling repository and resolves it through a local
-`file:` dev dependency.
+For local development in the split workspace, this repository now expects internal packages to be
+published to the local Verdaccio registry from `../sport-club-manager-dev-infra`.
 
 ## Package Layout
 
@@ -107,6 +106,7 @@ Common commands:
 npm run typecheck
 npm run build
 npm run check:angular-metadata
+npm run publish:verdaccio
 ```
 
 This package must be built with Angular compilation. Do not replace the build with plain `tsc` for
