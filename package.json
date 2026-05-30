@@ -1,6 +1,6 @@
 {
   "name": "sport-club-manager-firebase-connector",
-  "version": "0.1.0-dev.20260528.3",
+  "version": "0.1.0-dev.20260530065511760",
   "description": "Firebase connector package for the Sport Club Manager Angular frontend.",
   "type": "module",
   "sideEffects": false,
@@ -32,9 +32,9 @@
     "check:angular-metadata": "node ./scripts/verify-angular-metadata.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "version:dev": "node ../sport-club-manager-dev-infra/scripts/set-internal-release-version.mjs",
-    "publish:verdaccio": "npm publish",
+    "prepublishOnly": "npm run build",
+    "publish:verdaccio": "npm publish --registry http://127.0.0.1:4873/ --tag dev",
     "release:verdaccio": "npm run version:dev && npm run publish:verdaccio",
-    "prepare": "npm run build",
     "clean": "rm -rf dist"
   },
   "publishConfig": {
@@ -44,14 +44,14 @@
     "@angular/core": "^20.2.0",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
-    "sport-club-manager-contracts": "0.1.0-dev.20260528.3"
+    "sport-club-manager-contracts": "0.1.0-dev.20260530065511760"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^20.2.0",
     "@angular/core": "^20.2.0",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
-    "sport-club-manager-contracts": "0.1.0-dev.20260528.3",
+    "sport-club-manager-contracts": "0.1.0-dev.20260530065511760",
     "typescript": "~5.9.2"
   }
 }
