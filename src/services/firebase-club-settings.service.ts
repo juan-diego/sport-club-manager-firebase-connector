@@ -107,9 +107,14 @@ export class FirebaseClubSettingsService implements ClubSettingsProvider {
     const data = this.readRecord(value);
 
     return {
-      ...this.mapFieldRuleSettings(value),
       enabled: typeof data['enabled'] === 'boolean' ? data['enabled'] : false,
-      allowedValues: this.readStringArray(data['allowedValues'])
+      allowedValues: this.readStringArray(data['allowedValues']),
+      label: this.readOptionalString(data['label']),
+      placeholder: null,
+      pattern: null,
+      maxLength: null,
+      normalization: [],
+      helpText: this.readOptionalString(data['helpText'])
     };
   }
 
