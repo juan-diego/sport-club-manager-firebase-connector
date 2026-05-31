@@ -34,7 +34,8 @@ Planned consumer:
 
 - `sport-club-manager-angular-frontend`
 
-For local development, this repository expects internal packages to be published to the local Verdaccio registry from `../sport-club-manager-dev-infra`.
+For local development, this repository expects internal packages to be published to a reachable
+registry such as the local Verdaccio instance managed by `sport-club-manager-dev-infra`.
 
 ## Package Layout
 
