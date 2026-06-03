@@ -6,6 +6,8 @@ import {
   UserRole,
   UserStatus,
   type ClubMembership,
+  type FederationLicense,
+  type FederationLicenseMutation,
   type User,
   type UserClubDataUpdate,
   type UserConfigurationUpdate,
@@ -37,6 +39,34 @@ type UpdateUserClubDataPayload = {
   memberCode: string;
   memberFrom: string;
   memberTo: string;
+};
+
+type FederationLicenseMutationPayload = {
+  uid: string;
+  id?: string;
+  federationId: string;
+  validFrom: string;
+  validTo: string;
+};
+
+type CreateFederationLicenseResult = {
+  id: string;
+};
+
+type FederationLicenseResponse = {
+  id: string;
+  federation: {
+    id: string;
+    name: string;
+    scope: 'REGIONAL' | 'NATIONAL';
+    regionCode?: string;
+  };
+  validFrom: string;
+  validTo: string;
+};
+
+type GetFederationLicensesResult = {
+  licenses: FederationLicenseResponse[];
 };
 
 @Injectable({
@@ -111,6 +141,41 @@ export class FirebaseUsersService implements UserDetailProvider {
     });
   }
 
+  async createFederationLicense(uid: string, license: FederationLicenseMutation): Promise<string> {
+    const callable = httpsCallable<FederationLicenseMutationPayload, CreateFederationLicenseResult>(
+      this.functions,
+      'createUserFederationLicense'
+    );
+
+    const result = await callable(this.toFederationLicensePayload(uid, license));
+    return result.data.id;
+  }
+
+  async updateFederationLicense(
+    uid: string,
+    licenseId: string,
+    license: FederationLicenseMutation
+  ): Promise<void> {
+    const callable = httpsCallable<FederationLicenseMutationPayload, unknown>(
+      this.functions,
+      'updateUserFederationLicense'
+    );
+
+    await callable({
+      id: licenseId,
+      ...this.toFederationLicensePayload(uid, license)
+    });
+  }
+
+  async deleteFederationLicense(uid: string, licenseId: string): Promise<void> {
+    const callable = httpsCallable<{ uid: string; id: string }, unknown>(
+      this.functions,
+      'deleteUserFederationLicense'
+    );
+
+    await callable({ uid, id: licenseId });
+  }
+
   private async getUserRoles(uids: string[]): Promise<Record<string, UserRole>> {
     const chunks: string[][] = [];
 
@@ -127,12 +192,13 @@ export class FirebaseUsersService implements UserDetailProvider {
     knownAccountSnapshot?: DocumentSnapshot<DocumentData>,
     knownRole?: UserRole
   ): Promise<UserDetail> {
-    const [accountResult, profileResult, membershipResult, roleResult] = await Promise.allSettled([
+    const [accountResult, profileResult, membershipResult, licensesResult, roleResult] = await Promise.allSettled([
       knownAccountSnapshot
         ? Promise.resolve(knownAccountSnapshot)
         : getDoc(doc(this.firestore, this.usersCollection, uid)),
       getDoc(doc(this.firestore, this.userProfilesCollection, uid)),
       getDoc(doc(this.firestore, this.clubMembershipsCollection, uid)),
+      this.getFederationLicenses(uid),
       knownRole ? Promise.resolve(knownRole) : this.roleProvider.getUserRole(uid)
     ]);
 
@@ -153,7 +219,7 @@ export class FirebaseUsersService implements UserDetailProvider {
       profile: this.mapProfile(uid, profile),
       role,
       membership: this.mapMembership(uid, membership),
-      federationLicenses: [],
+      federationLicenses: this.settledFederationLicenses(licensesResult),
       isAdmin(): boolean {
         return role === UserRole.ADMIN;
       },
@@ -179,6 +245,14 @@ export class FirebaseUsersService implements UserDetailProvider {
   private settledRole(result: PromiseSettledResult<UserRole>): UserRole | undefined {
     if (result.status === 'rejected') {
       return undefined;
+    }
+
+    return result.value;
+  }
+
+  private settledFederationLicenses(result: PromiseSettledResult<FederationLicense[]>): FederationLicense[] {
+    if (result.status === 'rejected') {
+      return [];
     }
 
     return result.value;
@@ -230,6 +304,21 @@ export class FirebaseUsersService implements UserDetailProvider {
       createdAt: this.toDate(data['createdAt']),
       updatedAt: this.toDate(data['updatedAt'])
     };
+  }
+
+  private async getFederationLicenses(uid: string): Promise<FederationLicense[]> {
+    const callable = httpsCallable<{ uid: string }, GetFederationLicensesResult>(
+      this.functions,
+      'getUserFederationLicenses'
+    );
+    const result = await callable({ uid });
+
+    return result.data.licenses.map(license => ({
+      id: license.id,
+      federation: license.federation,
+      validFrom: this.toDate(license.validFrom) ?? new Date(0),
+      validTo: this.toDate(license.validTo) ?? new Date(0)
+    }));
   }
 
   private toDate(value: unknown): Date | undefined {
@@ -288,6 +377,18 @@ export class FirebaseUsersService implements UserDetailProvider {
     const day = `${date.getDate()}`.padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+  }
+
+  private toFederationLicensePayload(
+    uid: string,
+    license: FederationLicenseMutation
+  ): FederationLicenseMutationPayload {
+    return {
+      uid,
+      federationId: license.federationId,
+      validFrom: this.toDateInput(license.validFrom),
+      validTo: this.toDateInput(license.validTo)
+    };
   }
 
   private getClubMembershipStatus(data: DocumentData): ClubMembershipStatus {
