@@ -1,6 +1,6 @@
 {
   "name": "sport-club-manager-firebase-connector",
-  "version": "0.1.0-dev.20260603155528338",
+  "version": "0.1.0-dev.20260604174418605",
   "description": "Firebase connector package for the Sport Club Manager Angular frontend.",
   "type": "module",
   "sideEffects": false,
@@ -42,14 +42,14 @@
     "@angular/core": "^20.2.0",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
-    "sport-club-manager-contracts": "0.1.0-dev.20260603155528338"
+    "sport-club-manager-contracts": "0.1.0-dev.20260604174418605"
   },
   "devDependencies": {
     "@angular/compiler-cli": "^20.2.0",
     "@angular/core": "^20.2.0",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
-    "sport-club-manager-contracts": "0.1.0-dev.20260603155528338",
+    "sport-club-manager-contracts": "0.1.0-dev.20260604174418605",
     "typescript": "~5.9.2"
   }
 }
