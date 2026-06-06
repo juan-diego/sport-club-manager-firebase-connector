@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
-import type { UserRole } from 'sport-club-manager-contracts/models';
-import type { RoleProvider } from 'sport-club-manager-contracts/providers';
+import type { UserRole } from '@sport-club-manager/contracts/models';
+import type { RoleProvider } from '@sport-club-manager/contracts/providers';
 
 import type { Functions } from 'firebase/functions';
 import { httpsCallable } from 'firebase/functions';

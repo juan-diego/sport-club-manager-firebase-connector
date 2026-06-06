@@ -9,8 +9,8 @@ import type {
   SpaceRegistrationUpdate,
   UserInvitationCreate,
   UserInvitationResult
-} from 'sport-club-manager-contracts/models';
-import type { RegistrationProvider, SpaceRegistrationProvider } from 'sport-club-manager-contracts/providers';
+} from '@sport-club-manager/contracts/models';
+import type { RegistrationProvider, SpaceRegistrationProvider } from '@sport-club-manager/contracts/providers';
 
 import type { CollectionReference, DocumentData } from 'firebase/firestore';
 import { collection, getDocs, query, Timestamp, where } from 'firebase/firestore';

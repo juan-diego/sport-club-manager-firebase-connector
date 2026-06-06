@@ -7,9 +7,9 @@ import type {
   FieldRuleSettings,
   NationalIdSettings,
   ValueNormalization
-} from 'sport-club-manager-contracts/models';
-import { createEmptyFieldRuleSettings } from 'sport-club-manager-contracts/models';
-import type { ClubSettingsProvider } from 'sport-club-manager-contracts/providers';
+} from '@sport-club-manager/contracts/models';
+import { createEmptyFieldRuleSettings } from '@sport-club-manager/contracts/models';
+import type { ClubSettingsProvider } from '@sport-club-manager/contracts/providers';
 
 import type { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import { doc, getDoc } from 'firebase/firestore';

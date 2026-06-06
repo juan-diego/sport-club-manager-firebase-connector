@@ -3,13 +3,13 @@ import { toObservable } from '@angular/core/rxjs-interop';
 import { firstValueFrom } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 
-import type { AuthState, AuthUser } from 'sport-club-manager-contracts/models';
-import { AuthStateModel, UserRole, type AuthCredentials, type RegisterCredentials } from 'sport-club-manager-contracts/models';
+import type { AuthState, AuthUser } from '@sport-club-manager/contracts/models';
+import { AuthStateModel, UserRole, type AuthCredentials, type RegisterCredentials } from '@sport-club-manager/contracts/models';
 import type {
   AuthProvider,
   RegistrationProvider,
   UserDetailProvider
-} from 'sport-club-manager-contracts/providers';
+} from '@sport-club-manager/contracts/providers';
 
 import type { Auth, User } from 'firebase/auth';
 import { getIdTokenResult, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';

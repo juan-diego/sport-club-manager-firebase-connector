@@ -15,8 +15,8 @@ import {
   type UserInvitationInfo,
   type UserPersonalDataUpdate,
   type UserProfile
-} from 'sport-club-manager-contracts/models';
-import type { RoleProvider, UserDetailProvider } from 'sport-club-manager-contracts/providers';
+} from '@sport-club-manager/contracts/models';
+import type { RoleProvider, UserDetailProvider } from '@sport-club-manager/contracts/providers';
 
 import type { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import { collection, doc, getDoc, getDocs, orderBy, query, serverTimestamp, Timestamp, updateDoc } from 'firebase/firestore';

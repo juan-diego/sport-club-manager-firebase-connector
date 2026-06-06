@@ -1,9 +1,9 @@
-# sport-club-manager-firebase-connector
+# @sport-club-manager/firebase-connector
 
 Firebase connector package for the Sport Club Manager Angular frontend.
 
 This package owns the Angular and Firebase integration layer that implements the shared contracts
-from `sport-club-manager-contracts`.
+from `@sport-club-manager/contracts`.
 
 ## Purpose
 
@@ -28,14 +28,15 @@ Required peer dependencies:
 - `@angular/core`
 - `firebase`
 - `rxjs`
-- `sport-club-manager-contracts`
+- `@sport-club-manager/contracts`
 
 Planned consumer:
 
 - `sport-club-manager-angular-frontend`
 
-For local development, this repository expects internal packages to be published to a reachable
-registry such as the local Verdaccio instance managed by `sport-club-manager-dev-infra`.
+For local development, CI, and Firebase deployment, this repository expects internal packages to be
+published to the Google Artifact Registry repository managed by `sport-club-manager-dev-infra`.
+Verdaccio is available only as an optional local-registry experiment.
 
 ## Package Layout
 
@@ -48,10 +49,10 @@ registry such as the local Verdaccio instance managed by `sport-club-manager-dev
 
 Published entrypoints:
 
-- `sport-club-manager-firebase-connector`
-- `sport-club-manager-firebase-connector/config`
-- `sport-club-manager-firebase-connector/providers`
-- `sport-club-manager-firebase-connector/services`
+- `@sport-club-manager/firebase-connector`
+- `@sport-club-manager/firebase-connector/config`
+- `@sport-club-manager/firebase-connector/providers`
+- `@sport-club-manager/firebase-connector/services`
 
 ## Frontend Integration
 
@@ -71,7 +72,7 @@ Expected config shape:
 Example:
 
 ```ts
-import { provideFirebaseConnector } from 'sport-club-manager-firebase-connector';
+import { provideFirebaseConnector } from '@sport-club-manager/firebase-connector';
 
 provideFirebaseConnector({
   firebaseConfig: environment.firebaseConfig,
@@ -106,7 +107,8 @@ Common commands:
 npm run typecheck
 npm run build
 npm run check:angular-metadata
-npm run publish:verdaccio
+npm run artifactregistry-login
+npm run publish:artifactregistry
 ```
 
 This package must be built with Angular compilation. Do not replace the build with plain `tsc` for

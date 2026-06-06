@@ -1,7 +1,7 @@
 # Connector Architecture
 
 This document describes the intended architecture and maintenance boundaries for
-`sport-club-manager-firebase-connector`.
+`@sport-club-manager/firebase-connector`.
 
 ## Role In The System
 
@@ -10,7 +10,7 @@ This package is the Firebase implementation layer used by the Angular frontend.
 It sits between:
 
 - `sport-club-manager-angular-frontend`
-- `sport-club-manager-contracts`
+- `@sport-club-manager/contracts`
 
 It implements shared provider contracts using:
 
@@ -118,7 +118,7 @@ Current implementation responsibilities:
 
 When changing this package, verify all of the following:
 
-- shared contracts are imported from `sport-club-manager-contracts`
+- shared contracts are imported from `@sport-club-manager/contracts`
 - no frontend feature code is introduced
 - no backend deploy/runtime ownership leaks into the package
 - config and emulator behavior remain documented

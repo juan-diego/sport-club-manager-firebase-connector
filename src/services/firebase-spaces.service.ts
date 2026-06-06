@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { defer, from, map, Observable } from 'rxjs';
 
-import type { Space } from 'sport-club-manager-contracts/models';
-import type { SpaceProvider } from 'sport-club-manager-contracts/providers';
+import type { Space } from '@sport-club-manager/contracts/models';
+import type { SpaceProvider } from '@sport-club-manager/contracts/providers';
 
 import type { CollectionReference, DocumentData } from 'firebase/firestore';
 import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';

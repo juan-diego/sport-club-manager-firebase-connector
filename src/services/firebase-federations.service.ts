@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { defer, from, map, Observable } from 'rxjs';
 
-import type { FederationInfo } from 'sport-club-manager-contracts/models';
-import type { FederationProvider } from 'sport-club-manager-contracts/providers';
+import type { FederationInfo } from '@sport-club-manager/contracts/models';
+import type { FederationProvider } from '@sport-club-manager/contracts/providers';
 
 import type { DocumentData, DocumentSnapshot, QueryDocumentSnapshot } from 'firebase/firestore';
 import { collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';

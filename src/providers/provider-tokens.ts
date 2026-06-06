@@ -9,7 +9,7 @@ import type {
   SpaceProvider,
   SpaceRegistrationProvider,
   UserDetailProvider
-} from 'sport-club-manager-contracts/providers';
+} from '@sport-club-manager/contracts/providers';
 
 export const AUTH_PROVIDER = new InjectionToken<AuthProvider>('Auth provider');
 export const USER_DETAIL_PROVIDER = new InjectionToken<UserDetailProvider>('User detail provider');
