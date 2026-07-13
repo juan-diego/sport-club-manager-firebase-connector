@@ -31,10 +31,7 @@
     "build": "ngc -p tsconfig.lib.json && node ./scripts/verify-angular-metadata.mjs",
     "check:angular-metadata": "node ./scripts/verify-angular-metadata.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "artifactregistry-login": "npm_config_registry=https://registry.npmjs.org npx google-artifactregistry-auth --repo-config=./.npmrc",
     "prepublishOnly": "npm run build",
-    "publish:artifactregistry": "npm run artifactregistry-login && npm publish --tag dev",
-    "publish:verdaccio": "npm publish --registry http://127.0.0.1:4873/ --tag dev",
     "clean": "rm -rf dist"
   },
   "publishConfig": {

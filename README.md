@@ -30,14 +30,6 @@ Required peer dependencies:
 - `rxjs`
 - `@sport-club-manager/contracts`
 
-Planned consumer:
-
-- `sport-club-manager-angular-frontend`
-
-For local development, CI, and Firebase deployment, this repository expects internal packages to be
-published to the Google Artifact Registry repository managed by `sport-club-manager-dev-infra`.
-Verdaccio is available only as an optional local-registry experiment.
-
 ## Package Layout
 
 - `src/config`
@@ -107,9 +99,9 @@ Common commands:
 npm run typecheck
 npm run build
 npm run check:angular-metadata
-npm run artifactregistry-login
-npm run publish:artifactregistry
 ```
+
+Registry selection, authentication, and publication are external to this component.
 
 This package must be built with Angular compilation. Do not replace the build with plain `tsc` for
 Angular-decorated classes, or consuming apps can fail at runtime with JIT compilation errors.
