@@ -30,6 +30,17 @@ Required peer dependencies:
 - `rxjs`
 - `@sport-club-manager/contracts`
 
+For development, `@sport-club-manager/contracts` is installed from the sibling
+`../sport-club-manager-contracts` checkout. `.npmrc` sets `install-links=true`, so npm copies the
+built package instead of symlinking it. Build contracts before installing, and reinstall after
+contracts changes:
+
+```bash
+npm --prefix ../sport-club-manager-contracts run build
+rm -rf node_modules/@sport-club-manager
+npm install
+```
+
 ## Package Layout
 
 - `src/config`
@@ -101,7 +112,8 @@ npm run build
 npm run check:angular-metadata
 ```
 
-Registry selection, authentication, and publication are external to this component.
+Consumers install this package from the built `dist` output of this checkout, so run
+`npm run build` before installing or reinstalling it in a consumer.
 
 This package must be built with Angular compilation. Do not replace the build with plain `tsc` for
 Angular-decorated classes, or consuming apps can fail at runtime with JIT compilation errors.

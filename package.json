@@ -34,21 +34,18 @@
     "prepublishOnly": "npm run build",
     "clean": "rm -rf dist"
   },
-  "publishConfig": {
-    "registry": "https://europe-southwest1-npm.pkg.dev/xabalin-e8817/sport-club-manager-npm/"
-  },
   "peerDependencies": {
-    "@angular/core": "^20.2.0",
+    "@angular/core": "^20.3.34",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
     "@sport-club-manager/contracts": "0.1.0-dev.20260714070040877"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^20.2.0",
-    "@angular/core": "^20.2.0",
+    "@angular/compiler-cli": "^20.3.34",
+    "@angular/core": "^20.3.34",
     "firebase": "^12.2.1",
     "rxjs": "~7.8.0",
-    "@sport-club-manager/contracts": "0.1.0-dev.20260714070040877",
+    "@sport-club-manager/contracts": "file:../sport-club-manager-contracts",
     "typescript": "~5.9.2"
   }
 }
